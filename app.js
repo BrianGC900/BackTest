@@ -4,7 +4,7 @@ import connectDB from './src/config/database.js';
 import userRoutes from './src/routes/userRoutes.js'; 
 import authRoutes from './src/routes/authRoutes.js';
 import { protect } from './src/middleware/authMiddleware.js';
-import {seedDatabaseUsers} from './src/utils/seedUsers.js'
+// import {seedDatabaseUsers} from './src/utils/seedUsers.js'
 
 dotenv.config();
 
@@ -17,12 +17,9 @@ app.use(express.json());
 // Rutas
 app.use('/api/auth', authRoutes); 
 app.use('/api', userRoutes); 
-
-// Ruta ejemplo
 app.get('/api/protected', protect, (req, res) => {
     res.status(200).json({ message: 'Acceso autorizado', userId: req.user.userId });
 });
-seedDatabaseUsers();
 
 // Ruta raíz 
 app.get('/', (req, res) => {
