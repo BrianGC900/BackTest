@@ -7,6 +7,7 @@ const userFactorSchema = new mongoose.Schema({
   isVerified: { type: Boolean, default: false },
   twoFactorCode: { type: String, default: '' },
   twoFactorExpires: { type: Date, default: null },
+  role: { type: String, enum: ['admin', 'user'], default: 'user' }, // Nuevo campo
 });
 
 userFactorSchema.pre('save', async function (next) {
@@ -16,7 +17,6 @@ userFactorSchema.pre('save', async function (next) {
   next();
 });
 
-// Cambié 'User' por 'UserFactor'
 const UserFactor = mongoose.model('UserFactor', userFactorSchema);
 
 export default UserFactor;

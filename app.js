@@ -4,11 +4,19 @@ import connectDB from './src/config/database.js';
 import userRoutes from './src/routes/userRoutes.js'; 
 import authRoutes from './src/routes/authRoutes.js';
 import { protect } from './src/middleware/authMiddleware.js';
-// import {seedDatabaseUsers} from './src/utils/seedUsers.js'
+import cors from 'cors'; 
+// import './src/utils/seed.js'
+// import './src/utils/seedUsers.js' 
 
 dotenv.config();
 
 const app = express();
+app.use(cors({
+  origin: 'http://localhost:5173', // Especificar el origen del frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,  // Permitir el envío de cookies y credenciales
+}));
 
 connectDB();
 

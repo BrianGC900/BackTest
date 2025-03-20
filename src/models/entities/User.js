@@ -52,6 +52,22 @@ const userSchema = new mongoose.Schema({
     required: false,
     default: '',
   },
+
+  // Campos para 2FA
+  isVerified: {
+    type: Boolean,
+    default: false, // Por defecto, el usuario no está verificado
+  },
+  twoFactorCode: {
+    type: String,
+  },
+  twoFactorExpires: {
+    type: Date,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
 }, {
   timestamps: true,
 });

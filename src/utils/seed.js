@@ -1,36 +1,36 @@
-import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-import dotenv from 'dotenv';
-import UserFactor from '../models/userFactor.js'; // Asegúrate de que la ruta sea correcta
+import User from '../models/entities/User.js';  // Asegúrate de que sea el modelo correcto
 
-dotenv.config();
-
-export const seedDatabase = async () => {
+const createAdminUser = async () => {
   try {
-    const hashedPassword = await bcrypt.hash('password', 10);
-
-    // Verificar si el modelo ya está definido antes de crear uno nuevo
-    if (mongoose.models.UserFactor) {
-      console.log('Modelo UserFactor ya está definido.');
-    } else {
-      const user = new UserFactor({
-        email: 'admin@example.com',
-        password: hashedPassword,
-        isVerified: true,
-      });
-
-      await user.save();
-      console.log('Usuario predeterminado creado');
+    const existingUser = await User.findOne({ email: 'admin@example.com' });
+    if (existingUser) {
+      console.log('El usuario admin ya existe');
+      return;
     }
 
+    const hashedPassword = await bcrypt.hash('Password123!', 10);  // Crea el hash de la contraseña
+    const adminUser = new User({
+      firstName: 'Brian',
+      lastName: 'Garcia',
+      email: 'admin@mailtrap.com',
+      phoneNumber: '1234567890',
+      role: 'Admin',
+      status: 'Active',
+      address: {
+        street: 'Admin Street',
+        number: '123',
+        city: 'Admin City',
+        postalCode: '12345',
+      },
+      password: hashedPassword,
+    });
+
+    await adminUser.save();
+    console.log('Usuario admin creado');
   } catch (error) {
-    console.error('Error al crear usuario predeterminado:', error);
-  } finally {
-    mongoose.connection.close();
+    console.error('Error al crear el usuario admin:', error);
   }
 };
 
-// Establecer conexión con la base de datos y ejecutar la función de seed
-mongoose.connect(process.env.MONGOOSE_URI)
-  .then(seedDatabase)
-  .catch(err => console.error('Error al conectar a MongoDB:', err));
+createAdminUser();
