@@ -1,4 +1,5 @@
 import User from '../models/entities/User.js';
+import mongoose from 'mongoose';
 
 export const getUsers = async ({ page, limit, role, status, search }) => {
   let query = {};
@@ -60,11 +61,5 @@ export const updateUser = async (id, userData) => {
     { new: true }
   );
 
-  return user;
-};
-
-// Eliminar un usuario por ID
-export const deleteUser = async (id) => {
-  const user = await User.findByIdAndDelete(id);
   return user;
 };

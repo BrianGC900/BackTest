@@ -1,6 +1,7 @@
 import { validationResult } from 'express-validator';
 import * as userService from '../services/userServices.js';
-import User from '../models/entities/User.js'; // Ajusta la ruta según sea necesario
+import User from '../models/entities/User.js';
+import mongoose from 'mongoose'; 
 
 
 // Este es un ejemplo básico
@@ -47,13 +48,26 @@ export const updateUser = async (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
   try {
-    const deletedUser = await userService.deleteUser(req.params.id);
-    if (!deletedUser) {
+    console.log("ID recibido:", id);
+
+    if (!mongoose.isValidObjectId(id)) {
+      return res.status(400).json({ message: "ID no válido" });
+    }
+
+    const user = await User.findOne();
+    console.log("user",user)
+
+    if (!user) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
-    res.status(200).json({ message: 'Usuario eliminado' });
+
+    await User.deleteOne({ _id: id });
+
+    res.status(200).json({ message: 'Usuario eliminado correctamente', user });
   } catch (error) {
-    res.status(500).json({ message: 'Error al eliminar el usuario', error });
+    res.status(500).json({ message: 'Error al eliminar el usuario', error: error.message });
   }
 };

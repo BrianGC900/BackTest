@@ -12,10 +12,10 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:5173', // Especificar el origen del frontend
+  origin: 'http://localhost:5173',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,  // Permitir el envío de cookies y credenciales
+  credentials: true,
 }));
 
 connectDB();

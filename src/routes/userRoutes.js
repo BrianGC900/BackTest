@@ -14,19 +14,17 @@ router.post('/users', validateUserCreation, (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  next(); // Solo si no hay errores, pasa al siguiente middleware
+  next(); 
 }, createUser);
 
-// Actualizar un usuario
 router.put('/users/:id', validateUserUpdate, (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  next(); // Solo si no hay errores, pasa al siguiente middleware
+  next(); 
 }, updateUser);
 
-// Eliminar un usuario
 router.delete('/users/:id', deleteUser);
 
 export default router;

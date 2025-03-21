@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import User from '../models/entities/User.js';  // Asegúrate de que sea el modelo correcto
+import User from '../models/entities/User.js'; 
 
 const createAdminUser = async () => {
   try {
@@ -9,7 +9,7 @@ const createAdminUser = async () => {
       return;
     }
 
-    const hashedPassword = await bcrypt.hash('Password123!', 10);  // Crea el hash de la contraseña
+    const hashedPassword = await bcrypt.hash('Password123!', 10); 
     const adminUser = new User({
       firstName: 'Brian',
       lastName: 'Garcia',
