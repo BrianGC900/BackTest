@@ -55,7 +55,7 @@ cd nombre-del-proyecto
 npm install
 npm run dev
 ```
-## Descripción de la Implementación
+# Descripción de la Implementación
 Este backend está construido utilizando Express.js para gestionar las rutas API y MongoDB como base de datos. La aplicación maneja operaciones como:
 
 Autenticación de usuarios (registro, inicio de sesión, cierre de sesión)
@@ -66,7 +66,8 @@ Arquitectura MVC: Se sigue el patrón de Modelo-Vista-Controlador para organizar
 Autenticación JWT: Se utiliza JSON Web Tokens (JWT) para gestionar la autenticación y autorización segura de los usuarios.
 Operaciones Asíncronas: Se emplea el enfoque async/await para manejar operaciones asíncronas de manera limpia y evitar el "callback hell".
 Middlewares personalizados: Se usan middlewares para manejar la autenticación, los logs y los errores.
-Bibliotecas y Frameworks Usados
+
+# Bibliotecas y Frameworks Usados
 Express.js: Framework minimalista para Node.js, utilizado para crear las rutas y gestionar las solicitudes HTTP.
 jsonwebtoken (JWT): Para la autenticación segura de los usuarios mediante tokens.
 dotenv: Para manejar las variables de entorno.
