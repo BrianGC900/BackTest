@@ -38,36 +38,30 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: 'Contraseña incorrecta' });
     }
 
-    // Generar JWT
     const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    // Si 2FA está habilitado, generar y enviar un código
     if (!user.isVerified) {
-      const code = Math.floor(100000 + Math.random() * 900000).toString(); // Código de 6 dígitos
+      const code = Math.floor(100000 + Math.random() * 900000).toString(); 
       user.twoFactorCode = code;
-      user.twoFactorExpires = Date.now() + 10 * 60 * 1000; // El código expira en 10 minutos
+      user.twoFactorExpires = Date.now() + 10 * 60 * 1000;
       await user.save();
 
-      // Enviar código por correo
       const mailOptions = {
-        from: process.env.MAILTRAP_USER,  // Usar el correo de Mailtrap
+        from: process.env.MAILTRAP_USER,
         to: user.email,
         subject: 'Código de Verificación 2FA',
         text: `Tu código de verificación es: ${code}`,
       };
 
-      // Esperar la respuesta del envío del correo
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
           console.log(error);
           return res.status(500).json({ message: `Error al enviar el código de 2FA: ${error.message}` });
         }
 
-        // Enviar respuesta indicando que se requiere el código de 2FA
         res.status(200).json({ requiresTwoFactor: true, message: 'Código de verificación enviado. Ingresa el código.' });
       });
     } else {
-      // El login fue exitoso, y no es necesario hacer 2FA si ya está verificado
       res.status(200).json({ requiresTwoFactor: false, message: 'Login exitoso', token });
     }
   } catch (error) {
@@ -108,25 +102,47 @@ export const register = async (req, res) => {
 };
 
 export const verifyTwoFactor = async (req, res) => {
-  const { email, code } = req.body;
-
   try {
-    const user = await User.findOne({ email });
-    if (!user || user.twoFactorCode !== code || Date.now() > user.twoFactorExpires) {
-      return res.status(400).json({ message: 'Código de verificación inválido o expirado' });
+    console.log("Cuerpo recibido en verifyTwoFactor:", req.body);
+    
+    const { email, code } = req.body;
+    if (!email || !code) {
+      console.log("Error: Email o código faltante");
+      return res.status(400).json({ message: "Faltan datos en la petición" });
     }
 
-    // Desactivar 2FA en el usuario después de la verificación
+    if (typeof email !== "string") {
+      console.log("Error: `email` debe ser un string, pero se recibió:", typeof email);
+      return res.status(400).json({ message: "Formato de email inválido" });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      console.log("Error: Usuario no encontrado");
+      return res.status(400).json({ message: "Usuario no encontrado" });
+    }
+
+    console.log("Código esperado:", user.twoFactorCode);
+    console.log("Código recibido:", code);
+    console.log("Fecha de expiración:", user.twoFactorExpires);
+
+    if (user.twoFactorCode !== code || Date.now() > user.twoFactorExpires) {
+      console.log("Error: Código inválido o expirado");
+      return res.status(400).json({ message: "Código de verificación inválido o expirado" });
+    }
+
     user.isVerified = true;
-    user.twoFactorCode = '';
+    user.twoFactorCode = "";
     user.twoFactorExpires = null;
     await user.save();
 
-    // Generar nuevo JWT tras la verificación
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    console.log("Usuario verificado con éxito");
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
     res.status(200).json({ token });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error al verificar el código de 2FA' });
+    console.error("Error en verifyTwoFactor:", error);
+    res.status(500).json({ message: "Error al verificar el código de 2FA" });
   }
 };

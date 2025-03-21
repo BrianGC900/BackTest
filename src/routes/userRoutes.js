@@ -9,10 +9,22 @@ const router = express.Router();
 router.get('/users', getUsers);
 
 // Crear un nuevo usuario
-router.post('/users', validateUserCreation, createUser);
+router.post('/users', validateUserCreation, (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  next(); // Solo si no hay errores, pasa al siguiente middleware
+}, createUser);
 
 // Actualizar un usuario
-router.put('/users/:id', validateUserUpdate, updateUser);
+router.put('/users/:id', validateUserUpdate, (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  next(); // Solo si no hay errores, pasa al siguiente middleware
+}, updateUser);
 
 // Eliminar un usuario
 router.delete('/users/:id', deleteUser);

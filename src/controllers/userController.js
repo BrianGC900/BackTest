@@ -1,13 +1,15 @@
 import { validationResult } from 'express-validator';
 import * as userService from '../services/userServices.js';
+import User from '../models/entities/User.js'; // Ajusta la ruta según sea necesario
 
+
+// Este es un ejemplo básico
 export const getUsers = async (req, res) => {
   try {
-    const { page = 1, limit = 10, role, status, search } = req.query;
-    const users = await userService.getUsers({ page, limit, role, status, search });
+    const users = await User.find(); // Obtener todos los usuarios
     res.status(200).json(users);
   } catch (error) {
-    res.status(500).json({ message: 'Error al obtener los usuarios', error });
+    res.status(500).json({ message: 'Error al obtener usuarios', error: error.message });
   }
 };
 
