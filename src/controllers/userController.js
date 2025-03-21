@@ -4,10 +4,9 @@ import User from '../models/entities/User.js';
 import mongoose from 'mongoose'; 
 
 
-// Este es un ejemplo básico
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.find(); // Obtener todos los usuarios
+    const users = await User.find();
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener usuarios', error: error.message });
@@ -15,7 +14,6 @@ export const getUsers = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-  // Verificar si hay errores de validación
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -30,7 +28,6 @@ export const createUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-  // Verificar si hay errores de validación
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
