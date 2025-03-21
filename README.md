@@ -56,21 +56,21 @@ npm install
 npm run dev
 ```
 # Descripción de la Implementación
-Este backend está construido utilizando Express.js para gestionar las rutas API y MongoDB como base de datos. La aplicación maneja operaciones como:
+- Este backend está construido utilizando Express.js para gestionar las rutas API y MongoDB como base de datos. La aplicación maneja operaciones como:
 
-Autenticación de usuarios (registro, inicio de sesión, cierre de sesión)
-Operaciones CRUD para gestionar recursos (usuarios, productos, pedidos, etc.)
-Validación de datos y manejo de errores
-Decisiones de Implementación:
-Arquitectura MVC: Se sigue el patrón de Modelo-Vista-Controlador para organizar el código de manera eficiente y escalable.
-Autenticación JWT: Se utiliza JSON Web Tokens (JWT) para gestionar la autenticación y autorización segura de los usuarios.
-Operaciones Asíncronas: Se emplea el enfoque async/await para manejar operaciones asíncronas de manera limpia y evitar el "callback hell".
-Middlewares personalizados: Se usan middlewares para manejar la autenticación, los logs y los errores.
+- Autenticación de usuarios (registro, inicio de sesión, cierre de sesión)
+- Operaciones CRUD para gestionar recursos (usuarios, productos, pedidos, etc.)
+- Validación de datos y manejo de errores
+- Decisiones de Implementación:
+- Arquitectura MVC: Se sigue el patrón de Modelo-Vista-Controlador para organizar el código de manera eficiente y escalable.
+- Autenticación JWT: Se utiliza JSON Web Tokens (JWT) para gestionar la autenticación y autorización segura de los usuarios.
+- Operaciones Asíncronas: Se emplea el enfoque async/await para manejar operaciones asíncronas de manera limpia y evitar el "callback hell".
+- Middlewares personalizados: Se usan middlewares para manejar la autenticación, los logs y los errores.
 
 # Bibliotecas y Frameworks Usados
-Express.js: Framework minimalista para Node.js, utilizado para crear las rutas y gestionar las solicitudes HTTP.
-jsonwebtoken (JWT): Para la autenticación segura de los usuarios mediante tokens.
-dotenv: Para manejar las variables de entorno.
-mongoose: ORM para MongoDB, utilizado para manejar los modelos de datos y las interacciones con la base de datos.
-bcryptjs: Para encriptar contraseñas de manera segura.
-cors: Para permitir las solicitudes CORS desde el frontend.
+- Express.js: Framework minimalista para Node.js, utilizado para crear las rutas y gestionar las solicitudes HTTP.
+- jsonwebtoken (JWT): Para la autenticación segura de los usuarios mediante tokens.
+- dotenv: Para manejar las variables de entorno.
+- mongoose: ORM para MongoDB, utilizado para manejar los modelos de datos y las interacciones con la base de datos.
+- bcryptjs: Para encriptar contraseñas de manera segura.
+- cors: Para permitir las solicitudes CORS desde el frontend.
