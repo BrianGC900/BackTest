@@ -2,7 +2,6 @@ import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import User from '../models/entities/User.js'; 
 
-// Cargar las variables de entorno
 dotenv.config();
 
 const createAdminUser = async () => {
@@ -13,7 +12,6 @@ const createAdminUser = async () => {
       return;
     }
 
-    // Hashear la contraseña del .env
     const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
 
     const adminUser = new User({
@@ -33,7 +31,7 @@ const createAdminUser = async () => {
     });
 
     await adminUser.save();
-    console.log('Usuario admin creado');
+    console.log('Usuario admin creado exitosamente');
   } catch (error) {
     console.error('Error al crear el usuario admin:', error);
   }
