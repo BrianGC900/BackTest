@@ -19,6 +19,30 @@ Antes de comenzar, asegúrate de tener instalados los siguientes componentes en 
 - **npm** (gestor de paquetes de Node)
 - **MongoDB** (puede ser una instalación local o un servicio de MongoDB en la nube como MongoDB Atlas)
 
+# Configuración de Variables de Entorno para Mailtrap y Usuario Admin
+
+## Paso 1: Registro en Mailtrap
+
+Para manejar los correos en el entorno de desarrollo, es necesario registrarse en **Mailtrap: Email Delivery Platform**. Puedes hacerlo en el siguiente enlace:  
+
+🔗 [Registrarse en Mailtrap](https://mailtrap.io/)  
+
+Una vez registrado, obtendrás las credenciales necesarias para enviar correos desde tu aplicación.
+
+## Paso 2: Configurar las Variables de Entorno
+
+Debes reemplazar las siguientes variables de entorno en tu archivo `.env` con las credenciales obtenidas en Mailtrap:
+
+```env
+MAILTRAP_USER='Tu Username'
+MAILTRAP_PASS='Tu Password'
+ADMIN_EMAIL='example@mailtrap.com'
+ADMIN_PASSWORD='Tu Pasword'
+PORT=3001
+MONGOOSE_URI=mongodb+srv://Brian:Ugmex2024@cluster0.o0koz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET=alzyihLLHSg0t6ft67K//boVjs1Q67YayWMuPfNGGrY=
+```
+
 ## Instalación y Configuración
 
 ### 1. Clonar el Repositorio
@@ -28,8 +52,10 @@ Clona el repositorio en tu máquina local:
 ```bash
 git clone https://github.com/tuusuario/nombre-del-proyecto.git
 cd nombre-del-proyecto
-
-Descripción de la Implementación
+npm install
+npm run dev
+```
+## Descripción de la Implementación
 Este backend está construido utilizando Express.js para gestionar las rutas API y MongoDB como base de datos. La aplicación maneja operaciones como:
 
 Autenticación de usuarios (registro, inicio de sesión, cierre de sesión)
