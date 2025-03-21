@@ -1,19 +1,25 @@
+import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import User from '../models/entities/User.js'; 
 
+// Cargar las variables de entorno
+dotenv.config();
+
 const createAdminUser = async () => {
   try {
-    const existingUser = await User.findOne({ email: 'admin@example.com' });
+    const existingUser = await User.findOne({ email: process.env.ADMIN_EMAIL });
     if (existingUser) {
-      console.log('El usuario admin ya existe');
+      console.log('El usuario admin ya está creado');
       return;
     }
 
-    const hashedPassword = await bcrypt.hash('Password123!', 10); 
+    // Hashear la contraseña del .env
+    const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
+
     const adminUser = new User({
       firstName: 'Brian',
       lastName: 'Garcia',
-      email: 'admin@mailtrap.com',
+      email: process.env.ADMIN_EMAIL,
       phoneNumber: '1234567890',
       role: 'Admin',
       status: 'Active',

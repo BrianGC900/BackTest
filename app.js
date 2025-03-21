@@ -5,7 +5,7 @@ import userRoutes from './src/routes/userRoutes.js';
 import authRoutes from './src/routes/authRoutes.js';
 import { protect } from './src/middleware/authMiddleware.js';
 import cors from 'cors'; 
-// import './src/utils/seed.js'
+import './src/utils/seed.js'
 // import './src/utils/seedUsers.js' 
 
 dotenv.config();
