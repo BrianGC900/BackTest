@@ -39,8 +39,7 @@ MAILTRAP_PASS='Tu Password'
 ADMIN_EMAIL='example@mailtrap.com'
 ADMIN_PASSWORD='Tu Pasword'
 PORT=3001
-MONGOOSE_URI=mongodb+srv://Brian:Ugmex2024@cluster0.o0koz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-JWT_SECRET=alzyihLLHSg0t6ft67K//boVjs1Q67YayWMuPfNGGrY=
+MONGOOSE_URI='Tu BD'
 ```
 
 ## Instalación y Configuración
